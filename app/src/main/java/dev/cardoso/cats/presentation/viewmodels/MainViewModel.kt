@@ -1,4 +1,4 @@
-package dev.cardoso.cats.ui.viewmodels
+package dev.cardoso.cats.presentation.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

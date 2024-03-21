@@ -1,4 +1,4 @@
-package dev.cardoso.cats.ui.theme
+package dev.cardoso.cats.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

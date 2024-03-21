@@ -1,4 +1,4 @@
-package dev.cardoso.cats.ui.composables
+package dev.cardoso.cats.presentation.ui.composables
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

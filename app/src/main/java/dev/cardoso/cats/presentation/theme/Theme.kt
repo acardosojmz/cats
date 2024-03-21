@@ -1,4 +1,4 @@
-package dev.cardoso.cats.ui.theme
+package dev.cardoso.cats.presentation.theme
 
 import android.app.Activity
 import android.os.Build

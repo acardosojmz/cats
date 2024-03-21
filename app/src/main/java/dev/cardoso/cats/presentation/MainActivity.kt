@@ -1,4 +1,4 @@
-package dev.cardoso.cats
+package dev.cardoso.cats.presentation
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -12,10 +12,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import dev.cardoso.cats.ui.screens.CatFactScreen
+import dev.cardoso.cats.presentation.ui.screens.CatFactScreen
 
-import dev.cardoso.cats.ui.theme.CatsTheme
-import dev.cardoso.cats.ui.viewmodels.MainViewModel
+import dev.cardoso.cats.presentation.theme.CatsTheme
+import dev.cardoso.cats.presentation.viewmodels.MainViewModel
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {

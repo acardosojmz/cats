@@ -1,11 +1,11 @@
-package dev.cardoso.cats.ui.screens
+package dev.cardoso.cats.presentation.ui.screens
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.lifecycle.LiveData
 import dev.cardoso.cats.domain.models.CatFactStates
-import dev.cardoso.cats.ui.composables.CatFactCard
+import dev.cardoso.cats.presentation.ui.composables.CatFactCard
 
 
 @Composable
