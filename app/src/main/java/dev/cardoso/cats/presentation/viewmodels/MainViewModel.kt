@@ -11,12 +11,14 @@ import dev.cardoso.cats.domain.usecases.GetCatRandomFactUseCase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.util.Objects
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getCatRandomFactUseCase: GetCatRandomFactUseCase
 ): ViewModel() {
+
     private val mutableCatFact = MutableLiveData<CatFactStates>()
     val catFact: LiveData<CatFactStates>
         get() = mutableCatFact
