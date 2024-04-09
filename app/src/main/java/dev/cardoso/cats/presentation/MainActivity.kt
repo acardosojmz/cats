@@ -1,6 +1,7 @@
 package dev.cardoso.cats.presentation
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
@@ -28,8 +29,8 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     val viewModel: MainViewModel = hiltViewModel()
-                    CatFactScreen(catFact = viewModel.catFact, onClick =  {
-                        viewModel.getCatFact()
+                    CatFactScreen(catFact = viewModel.uiState, onClick =  {
+                          viewModel.getCatFact()
                     } )
                 }
             }

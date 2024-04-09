@@ -1,7 +1,5 @@
 package dev.cardoso.cats.presentation.viewmodels
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -9,9 +7,11 @@ import dev.cardoso.cats.domain.models.CatFactStates
 import dev.cardoso.cats.domain.models.Fact
 import dev.cardoso.cats.domain.usecases.GetCatRandomFactUseCase
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.util.Objects
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,32 +19,38 @@ class MainViewModel @Inject constructor(
     private val getCatRandomFactUseCase: GetCatRandomFactUseCase
 ): ViewModel() {
 
-    private val mutableCatFact = MutableLiveData<CatFactStates>()
-    val catFact: LiveData<CatFactStates>
-        get() = mutableCatFact
+    private val _uiState = MutableStateFlow<CatFactStates>(CatFactStates.Init)
+    val uiState: StateFlow<CatFactStates> = _uiState
 
-
+    init {
+        getCatFact()
+    }
     fun getCatFact() = viewModelScope.launch {
-        val catFactStates = getCatRandomFactUseCase()
+         val uiStates = getCatRandomFactUseCase().first()
         withContext(Dispatchers.IO) {
-            when (catFactStates) {
+            when (uiStates) {
+                is CatFactStates.Init -> notifyInitState()
                 is CatFactStates.Loading -> notifyLoadingState()
-                is CatFactStates.CatFactData -> notifyCatFactState(catFactStates.fact)
-                is CatFactStates.Error -> notifyErrorState(catFactStates.error)
+                is CatFactStates.CatFactData -> notifyCatFactState(uiStates.fact)
+                is CatFactStates.Error -> notifyErrorState(uiStates.error)
+
             }
         }
     }
 
+    private fun notifyInitState() {
+        _uiState.value= CatFactStates.Init
+    }
     private fun notifyLoadingState() {
-        mutableCatFact.postValue(CatFactStates.Loading)
+        _uiState.value = CatFactStates.Loading
     }
 
     private fun notifyCatFactState(fact: Fact) {
-        mutableCatFact.postValue(CatFactStates.CatFactData(fact))
+        _uiState.value= CatFactStates.CatFactData(fact)
     }
 
     private fun notifyErrorState(error: Throwable) {
-        mutableCatFact.postValue(CatFactStates.Error(error))
+        _uiState.value= CatFactStates.Error(error)
     }
 
 }
